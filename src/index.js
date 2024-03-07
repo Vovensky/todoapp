@@ -5,7 +5,7 @@ import TaskForm from './components/NewTaskForm/TaskForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  
     <TaskForm></TaskForm>
-  </React.StrictMode>
+
 );

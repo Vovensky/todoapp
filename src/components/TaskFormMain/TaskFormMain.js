@@ -1,15 +1,33 @@
 import TaskList from '../taskList/taskList.js';
-import Footer from '../Footer/Footer.js';
+
+import React from 'react';
 
 
 
-let TaskFormMain = () => {
-    return (
-    <section className='main'>
-        <TaskList></TaskList>
-        <Footer></Footer>
-    </section>
-    )
+class TaskFormMain extends React.Component {
+    constructor({onDeleted}) {
+        super();
+        this.onDeleted = onDeleted;
+
+
+    }
+
+    render() {
+
+        let {todoData} = this.props;
+        
+        return (
+            <section className='main'>
+                <TaskList   todoData={todoData} 
+                            onDeleted={this.onDeleted}
+                            onChangeItemStatus={this.props.onChangeItemStatus}>
+                </TaskList>
+                
+            </section>
+            )
+
+    }
+
 
 }
 
