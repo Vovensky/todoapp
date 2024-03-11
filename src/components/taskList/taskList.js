@@ -18,6 +18,7 @@ class TaskList extends React.Component {
           key={item.id}
           onDeleted={() => this.onDeleted(item.id)}
           onChangeItemStatus={() => this.props.onChangeItemStatus(item)}
+          onUpdateTaskValue={this.props.onUpdateTaskValue}
         />
       )
     })

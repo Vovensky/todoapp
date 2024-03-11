@@ -17,6 +17,7 @@ class TaskFormMain extends React.Component {
           todoData={todoData}
           onDeleted={this.onDeleted}
           onChangeItemStatus={this.props.onChangeItemStatus}
+          onUpdateTaskValue={this.props.onUpdateTaskValue}
         ></TaskList>
       </section>
     )

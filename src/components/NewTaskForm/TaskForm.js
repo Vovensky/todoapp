@@ -24,7 +24,7 @@ class TaskForm extends React.Component {
     return {
       label: label,
       created: new Date(),
-      id: (Math.random() * Math.random()).toFixed(3) * 1000,
+      id: (Math.random() * Math.random()).toFixed(3) * 1000 * Math.random(),
       completed: false,
     }
   }
@@ -55,6 +55,17 @@ class TaskForm extends React.Component {
       let newElem = { ...oldElem, completed: !oldElem.completed }
       return {
         todoData: [...this.state.todoData.slice(0, idx), newElem, ...this.state.todoData.slice(idx + 1)],
+      }
+    })
+  }
+
+  updateTaskValue = (item, eventTargetValue) => {
+    this.setState((state) => {
+      let idx = state.todoData.findIndex((el) => el.id === item.id)
+      let oldItem = state.todoData[idx]
+      let newItem = { ...oldItem, label: eventTargetValue }
+      return {
+        todoData: [...this.state.todoData.slice(0, idx), newItem, ...this.state.todoData.slice(idx + 1)],
       }
     })
   }
@@ -100,6 +111,7 @@ class TaskForm extends React.Component {
           todoData={allTasks}
           onDeleted={this.deleteItem}
           onChangeItemStatus={this.changeItemStatus}
+          onUpdateTaskValue={this.updateTaskValue}
         ></TaskFormMain>
         <Footer
           onSortByCompleted={this.sortByCompleted}
