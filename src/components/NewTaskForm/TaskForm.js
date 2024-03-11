@@ -12,6 +12,7 @@ class TaskForm extends React.Component {
     this.addItem = this.addItem.bind(this)
     this.state = {
       todoData: [this.createItem('Drink coffee'), this.createItem('Learn Javascript'), this.createItem('learn React')],
+      sortedByEnd: 'all',
     }
     this.changeItemStatus = this.changeItemStatus.bind(this)
     this.sortByCompleted = this.sortByCompleted.bind(this)
@@ -29,9 +30,9 @@ class TaskForm extends React.Component {
     }
   }
 
-  deleteItem(id) {
+  deleteItem(item) {
     this.setState((state) => {
-      let idx = state.todoData.findIndex((el) => el.id === id)
+      let idx = this.findIdx(state.todoData, item)
       let todoData = [...this.state.todoData.slice(0, idx), ...this.state.todoData.slice(idx + 1)]
       return {
         todoData: todoData,
@@ -48,9 +49,9 @@ class TaskForm extends React.Component {
     })
   }
 
-  changeItemStatus({ id }) {
+  changeItemStatus(item) {
     this.setState((state) => {
-      let idx = state.todoData.findIndex((el) => el.id === id)
+      let idx = this.findIdx(state.todoData, item)
       let oldElem = state.todoData[idx]
       let newElem = { ...oldElem, completed: !oldElem.completed }
       return {
@@ -61,13 +62,18 @@ class TaskForm extends React.Component {
 
   updateTaskValue = (item, eventTargetValue) => {
     this.setState((state) => {
-      let idx = state.todoData.findIndex((el) => el.id === item.id)
+      let idx = this.findIdx(state.todoData, item)
       let oldItem = state.todoData[idx]
       let newItem = { ...oldItem, label: eventTargetValue }
       return {
         todoData: [...this.state.todoData.slice(0, idx), newItem, ...this.state.todoData.slice(idx + 1)],
       }
     })
+  }
+
+  findIdx(stateArr, item) {
+    let idx = stateArr.findIndex((el) => el.id === item.id)
+    return idx
   }
 
   sortByCompleted() {
@@ -94,16 +100,19 @@ class TaskForm extends React.Component {
     })
   }
 
+  sortTasks() {
+    if (this.state.sortedByEnd === true) {
+      return this.state.todoData.filter((el) => el.completed === true)
+    } else if (this.state.sortedByEnd === false) {
+      return this.state.todoData.filter((el) => el.completed === false)
+    } else if (this.state.sortedByEnd === 'all') {
+      return this.state.todoData
+    }
+  }
+
   render() {
     const itemsLeft = this.state.todoData.filter((el) => !el.completed).length
-    let allTasks = this.state.todoData
-    if (this.state.sortedByEnd === true) {
-      allTasks = this.state.todoData.filter((el) => el.completed === true)
-    } else if (this.state.sortedByEnd === false) {
-      allTasks = this.state.todoData.filter((el) => el.completed === false)
-    } else if (this.state.sortedByEnd === 'all') {
-      allTasks = this.state.todoData
-    }
+    let allTasks = this.sortTasks()
     return (
       <section className="todoapp">
         <TaskFormHeader addItem={this.addItem}></TaskFormHeader>
