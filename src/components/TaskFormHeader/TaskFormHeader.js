@@ -1,24 +1,27 @@
-import React from 'react';
+import React from 'react'
 
 class TaskFormHeader extends React.Component {
-  cons;
+  constructor() {
+    super()
+    this.state = {
+      inputValue: '',
+    }
+    this.onChange = this.onChange.bind(this)
+    this.dispatchEvent = this.dispatchEvent.bind(this)
+  }
 
-  state = {
-    inputValue: '',
-  };
-
-  onChange = (e) => {
-    this.setState({ inputValue: e.target.value });
-  };
+  onChange(e) {
+    this.setState({ inputValue: e.target.value })
+  }
 
   dispatchEvent = (e) => {
-    e.preventDefault();
-    this.props.addItem(this.state.inputValue);
-    this.setState({ inputValue: '' });
-  };
+    e.preventDefault()
+    this.props.addItem(this.state.inputValue)
+    this.setState({ inputValue: '' })
+  }
 
   render() {
-    let { inputValue } = this.state;
+    let { inputValue } = this.state
     return (
       <header>
         <form onSubmit={this.dispatchEvent}>
@@ -26,8 +29,8 @@ class TaskFormHeader extends React.Component {
           <input className="new-todo" placeholder="What needs to be done" value={inputValue} onChange={this.onChange} />
         </form>
       </header>
-    );
+    )
   }
 }
 
-export default TaskFormHeader;
+export default TaskFormHeader

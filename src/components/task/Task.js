@@ -1,45 +1,45 @@
-import React from 'react';
-import { formatDistanceToNow } from 'date-fns';
+import React from 'react'
+import { formatDistanceToNow } from 'date-fns'
 
 class Task extends React.Component {
   constructor({ item }) {
-    super();
-    this.label = item.label;
-    this.created = item.created;
-    this.id = item.id;
+    super()
+    this.label = item.label
+    this.created = item.created
+    this.id = item.id
+    this.state = {
+      dateFns: null,
+    }
+    this.onDate = this.onDate.bind(this)
   }
 
-  state = {
-    dateFns: null,
-  };
-
-  onDate = () => {
+  onDate() {
     setTimeout(() => {
       this.setState({
         dateFns: formatDistanceToNow(this.created, {
           includeSeconds: true,
         }),
-      });
-    }, 15 * 1000);
-  };
+      })
+    }, 15 * 1000)
+  }
 
   render() {
-    let completed = this.props.item.completed;
-    let className = '';
+    let completed = this.props.item.completed
+    let className = ''
 
-    let { dateFns } = this.state;
+    let { dateFns } = this.state
 
     if (completed) {
-      className = 'completed';
+      className = 'completed'
     }
 
     if (!dateFns)
       dateFns = formatDistanceToNow(this.created, {
         includeSeconds: true,
-      });
+      })
 
-    let wrapper = this.onDate;
-    wrapper();
+    let wrapper = this.onDate
+    wrapper()
 
     return (
       <li className={className}>
@@ -51,7 +51,7 @@ class Task extends React.Component {
             checked={this.props.item.completed}
             onChange={this.props.onChangeItemStatus}
           />
-          <label for={this.id}>
+          <label htmlFor={this.id}>
             <span className="description">{this.label}</span>
             <span className="created">{dateFns}</span>
           </label>
@@ -59,8 +59,8 @@ class Task extends React.Component {
           <button className="icon icon-destroy" onClick={this.props.onDeleted}></button>
         </div>
       </li>
-    );
+    )
   }
 }
 
-export default Task;
+export default Task

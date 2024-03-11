@@ -10,14 +10,14 @@
     "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings"
-  ],
+  ],   
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 12,
+    "ecmaVersion": "latest",
     "sourceType": "module"
-  },
+  },                                          
   "plugins": ["react", "prettier", "import"],
   "rules": {
     "indent": ["error", 2],
@@ -51,5 +51,6 @@
         "moduleDirectory": ["node_modules", "src/"]
       }
     }
+
   }
 }

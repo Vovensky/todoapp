@@ -1,19 +1,24 @@
-import React from 'react';
-import TaskFormHeader from '../TaskFormHeader/TaskFormHeader';
-import TaskFormMain from '../TaskFormMain/TaskFormMain';
-import Footer from '../Footer/Footer.js';
-import './TaskForm.css';
+import React from 'react'
+
+import TaskFormHeader from '../TaskFormHeader/TaskFormHeader'
+import TaskFormMain from '../TaskFormMain/TaskFormMain'
+import Footer from '../Footer/Footer.js'
+import './TaskForm.css'
 
 class TaskForm extends React.Component {
   constructor() {
-    super();
-    this.deleteItem = this.deleteItem.bind(this);
-    this.addItem = this.addItem.bind(this);
+    super()
+    this.deleteItem = this.deleteItem.bind(this)
+    this.addItem = this.addItem.bind(this)
+    this.state = {
+      todoData: [this.createItem('Drink coffee'), this.createItem('Learn Javascript'), this.createItem('learn React')],
+    }
+    this.changeItemStatus = this.changeItemStatus.bind(this)
+    this.sortByCompleted = this.sortByCompleted.bind(this)
+    this.sortByActive = this.sortByActive.bind(this)
+    this.showAllTasks = this.showAllTasks.bind(this)
+    this.sortAllCompletedTasks = this.sortAllCompletedTasks.bind(this)
   }
-
-  state = {
-    todoData: [this.createItem('Drink coffee'), this.createItem('Learn Javascript'), this.createItem('learn React')],
-  };
 
   createItem(label) {
     return {
@@ -21,72 +26,72 @@ class TaskForm extends React.Component {
       created: new Date(),
       id: (Math.random() * Math.random()).toFixed(3) * 1000,
       completed: false,
-    };
+    }
   }
 
   deleteItem(id) {
     this.setState((state) => {
-      let idx = state.todoData.findIndex((el) => el.id === id);
-      let todoData = [...this.state.todoData.slice(0, idx), ...this.state.todoData.slice(idx + 1)];
+      let idx = state.todoData.findIndex((el) => el.id === id)
+      let todoData = [...this.state.todoData.slice(0, idx), ...this.state.todoData.slice(idx + 1)]
       return {
         todoData: todoData,
-      };
-    });
+      }
+    })
   }
 
-  addItem = (label) => {
+  addItem(label) {
     this.setState((state) => {
-      let newItem = this.createItem(label);
-      let oldTodoData = [...state.todoData];
-      let newTodoData = [...oldTodoData, newItem];
-      return (state.todoData = newTodoData);
-    });
-  };
+      let newItem = this.createItem(label)
+      let oldTodoData = [...state.todoData]
+      let newTodoData = [...oldTodoData, newItem]
+      return (state.todoData = newTodoData)
+    })
+  }
 
-  changeItemStatus = ({ id }) => {
+  changeItemStatus({ id }) {
     this.setState((state) => {
-      let idx = state.todoData.findIndex((el) => el.id === id);
-      let oldElem = state.todoData[idx];
-      let newElem = { ...oldElem, completed: !oldElem.completed };
+      let idx = state.todoData.findIndex((el) => el.id === id)
+      let oldElem = state.todoData[idx]
+      let newElem = { ...oldElem, completed: !oldElem.completed }
       return {
         todoData: [...this.state.todoData.slice(0, idx), newElem, ...this.state.todoData.slice(idx + 1)],
-      };
-    });
-  };
+      }
+    })
+  }
 
-  sortByCompleted = () => {
-    this.setState({ sortedByEnd: true });
-  };
+  sortByCompleted() {
+    this.setState({ sortedByEnd: true })
+  }
 
-  sortByActive = () => {
-    this.setState({ sortedByEnd: false });
-  };
+  sortByActive() {
+    this.setState({ sortedByEnd: false })
+  }
 
-  showAllTasks = () => {
-    this.setState({ sortedByEnd: 'all' });
-  };
+  showAllTasks() {
+    this.setState({ sortedByEnd: 'all' })
+  }
 
-  sortAllCompletedTasks = () => {
+  sortAllCompletedTasks() {
     this.setState((state) => {
       let newArr = state.todoData.filter((elem) => {
-        if (elem.completed) return false;
-        else return true;
-      });
+        if (elem.completed) return false
+        else return true
+      })
       return {
         todoData: newArr,
-      };
-    });
-  };
+      }
+    })
+  }
 
   render() {
-    const itemsLeft = this.state.todoData.filter((el) => !el.completed).length;
-    let allTasks = this.state.todoData;
+    const itemsLeft = this.state.todoData.filter((el) => !el.completed).length
+    let allTasks = this.state.todoData
     if (this.state.sortedByEnd === true) {
-      allTasks = this.state.todoData.filter((el) => el.completed === true);
+      allTasks = this.state.todoData.filter((el) => el.completed === true)
     } else if (this.state.sortedByEnd === false) {
-      allTasks = this.state.todoData.filter((el) => el.completed === false);
+      allTasks = this.state.todoData.filter((el) => el.completed === false)
     } else if (this.state.sortedByEnd === 'all') {
-      allTasks = this.state.todoData;
+      allTasks = this.state.todoData
     }
     return (
       <section className="todoapp">
@@ -104,8 +109,8 @@ class TaskForm extends React.Component {
           itemsLeft={itemsLeft}
         ></Footer>
       </section>
-    );
+    )
   }
 }
 
-export default TaskForm;
+export default TaskForm

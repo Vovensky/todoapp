@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
 class Footer extends React.Component {
   constructor({ onSortByCompleted, onSortByActive, onShowAllTasks, onSortAllCompletedTasks }) {
-    super();
-    this.onSortByCompleted = onSortByCompleted;
-    this.onSortByActive = onSortByActive;
-    this.onShowAllTasks = onShowAllTasks;
-    this.onSortAllCompletedTasks = onSortAllCompletedTasks;
+    super()
+    this.onSortByCompleted = onSortByCompleted
+    this.onSortByActive = onSortByActive
+    this.onShowAllTasks = onShowAllTasks
+    this.onSortAllCompletedTasks = onSortAllCompletedTasks
   }
 
   render() {
@@ -27,8 +27,8 @@ class Footer extends React.Component {
           Clear completed
         </button>
       </footer>
-    );
+    )
   }
 }
 
-export default Footer;
+export default Footer

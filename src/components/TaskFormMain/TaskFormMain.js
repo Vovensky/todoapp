@@ -1,15 +1,15 @@
-import React from 'react';
+import React from 'react'
 
-import TaskList from '../taskList/taskList.js';
+import TaskList from '../taskList/taskList.js'
 
 class TaskFormMain extends React.Component {
   constructor({ onDeleted }) {
-    super();
-    this.onDeleted = onDeleted;
+    super()
+    this.onDeleted = onDeleted
   }
 
   render() {
-    let { todoData } = this.props;
+    let { todoData } = this.props
 
     return (
       <section className="main">
@@ -19,8 +19,8 @@ class TaskFormMain extends React.Component {
           onChangeItemStatus={this.props.onChangeItemStatus}
         ></TaskList>
       </section>
-    );
+    )
   }
 }
 
-export default TaskFormMain;
+export default TaskFormMain
